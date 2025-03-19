@@ -1,9 +1,9 @@
 import java.util.List;
 
 public class Function implements LispFunction {
-    private Expression params;
-    private Expression body;
-    private Environment env;
+    private final Expression params;
+    private final Expression body;
+    private final Environment env;
 
     public Function(Expression params, Expression body, Environment env) {
         this.params = params;
@@ -13,7 +13,7 @@ public class Function implements LispFunction {
 
     @Override
     public Object apply(List<Object> args) {
-        Environment localEnv = new Environment();
+        Environment localEnv = new Environment(env);
         for (int i = 0; i < params.size(); i++) {
             localEnv.define((String) params.get(i), args.get(i));
         }
