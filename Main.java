@@ -5,20 +5,25 @@ public class Main {
         Interpreter interpreter = new Interpreter();
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Bienvenido al intérprete LISP. Escribe una expresión o 'exit' para salir.");
+        System.out.println("Intérprete LISP Iniciado. Escriba 'exit' para salir.");
+
         while (true) {
-            System.out.print("> ");
+            System.out.print("LISP> ");
             String input = scanner.nextLine().trim();
 
             if (input.equalsIgnoreCase("exit")) {
+                System.out.println("Saliendo del intérprete...");
                 break;
             }
 
             try {
-                Object result = interpreter.evaluate(input);
-                System.out.println("Resultado: " + result);
+                Expression parsedExpression = Expression.parse(input);
+                Object result = interpreter.evaluate(parsedExpression);
+                if (result != null) {
+                    System.out.println("Resultado: " + result);
+                }
             } catch (Exception e) {
-                System.out.println("Error: " + e.getMessage());
+                System.err.println("Error: " + e.getMessage());
             }
         }
 
